@@ -53,8 +53,10 @@ const Navbar = () => {
               </a>
             ))}
             <a
-              href="/resume.pdf"
+              href="/Rahul_SDE.pdf"
               download
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary flex items-center gap-2"
             >
               <Download size={18} />
@@ -85,8 +87,10 @@ const Navbar = () => {
               </a>
             ))}
             <a
-              href="/resume.pdf"
+              href="/Rahul_SDE.pdf"
               download
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 px-3 py-2 text-primary-400 hover:bg-slate-800 rounded-md transition-colors"
             >
               <Download size={18} />

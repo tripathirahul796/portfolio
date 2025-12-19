@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Code2, Database, Palette, Wrench } from 'lucide-react';
+import { Code2, Database, Palette, Wrench, Briefcase } from 'lucide-react';
 
 const Skills = () => {
   const skillCategories = [
@@ -9,9 +9,10 @@ const Skills = () => {
       skills: [
         { name: 'Java', level: 95 },
         { name: 'Kotlin', level: 85 },
-        { name: 'Spring Boot', level: 92 },
-        { name: 'Microservices', level: 88 },
+        { name: 'Spring Boot', level: 95 },
         { name: 'WebFlux', level: 82 },
+        { name: 'Microservices', level: 90 },
+        { name: 'Apache Kafka', level: 88 },
       ],
     },
     {
@@ -19,21 +20,18 @@ const Skills = () => {
       title: 'Databases',
       skills: [
         { name: 'MongoDB', level: 85 },
-        { name: 'MySQL', level: 90 },
-        { name: 'SQL', level: 92 },
+        { name: 'SQL Server', level: 80 },
         { name: 'PostgreSQL', level: 80 },
-        { name: 'Redis', level: 75 },
+        { name: 'MySQL', level: 90 },
+        { name: 'NoSQL', level: 80 },
       ],
     },
     {
       icon: Palette,
-      title: 'Messaging & Streaming',
+      title: 'Orchestration & Workflow',
       skills: [
-        { name: 'Apache Kafka', level: 88 },
-        { name: 'RabbitMQ', level: 75 },
-        { name: 'Event-Driven Architecture', level: 85 },
-        { name: 'REST APIs', level: 92 },
-        { name: 'GraphQL', level: 70 },
+        { name: 'Apache Airflow', level: 80 },
+        { name: 'Autosys', level: 70 },
       ],
     },
     {
@@ -41,10 +39,43 @@ const Skills = () => {
       title: 'DevOps & Tools',
       skills: [
         { name: 'Git', level: 95 },
-        { name: 'Apache Airflow', level: 80 },
+        { name: 'Maven', level: 90 },
+        { name: 'Gradle', level: 85 },
+        { name: 'TeamCity', level: 80 },
+        { name: 'Bitbucket', level: 82 },
+        { name: 'GitHub', level: 85 },
         { name: 'Docker', level: 85 },
-        { name: 'Kubernetes', level: 75 },
         { name: 'CI/CD', level: 82 },
+      ],
+    },
+    {
+      icon: Palette,
+      title: 'Observability',
+      skills: [
+        { name: 'Prometheus', level: 80 },
+        { name: 'Grafana', level: 80 },
+        { name: 'Logging & Metrics Dashboards', level: 78 },
+      ],
+    },
+    {
+      icon: Briefcase,
+      title: 'IDE & Collaboration',
+      skills: [
+        { name: 'IntelliJ IDEA', level: 95 },
+        { name: 'VS Code', level: 85 },
+        { name: 'Postman', level: 80 },
+        { name: 'JIRA', level: 80 },
+        { name: 'Confluence', level: 75 },
+      ],
+    },
+    {
+      icon: Code2,
+      title: 'Domains',
+      skills: [
+        { name: 'Marketplace Systems', level: 88 },
+        { name: 'Retail', level: 85 },
+        { name: 'Capital Markets', level: 82 },
+        { name: 'Investment Banking', level: 82 },
       ],
     },
   ];

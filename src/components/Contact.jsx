@@ -11,6 +11,7 @@ const Contact = () => {
   });
 
   const [status, setStatus] = useState('');
+  const [statusType, setStatusType] = useState(''); // 'info' | 'success' | 'error'
 
   const handleChange = (e) => {
     setFormData({
@@ -19,38 +20,65 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const FORMSPREE_URL = import.meta.env.VITE_FORMSPREE_ENDPOINT || 'https://formspree.io/f/mvzpgvnw';
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus('Message sent successfully!');
-    setTimeout(() => {
-      setStatus('');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 3000);
+    setStatus('Sending...');
+
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json().catch(() => null);
+      if (res.ok) {
+        setStatusType('success');
+        setStatus('Message sent successfully!');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        console.error('Formspree error response:', res.status, data);
+        const errorMessage = data?.errors?.[0]?.message || data?.error || `${res.status} ${res.statusText}`;
+        setStatusType('error');
+        setStatus(errorMessage || 'Failed to send message.');
+      }
+    } catch (err) {
+      console.error('Form submit failed:', err);
+      setStatusType('error');
+      setStatus('Failed to send message.');
+    } finally {
+      setTimeout(() => { setStatus(''); setStatusType(''); }, 5000);
+    }
   };
 
   const contactInfo = [
     {
       icon: Mail,
       title: 'Email',
-      value: 'your.email@example.com',
-      link: 'mailto:your.email@example.com',
+      value: 'tripathirahul796@gmail.com',
+      link: 'mailto:tripathirahul796@gmail.com',
     },
     {
       icon: Phone,
       title: 'Phone',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567',
+      value: '+91- 9120076502',
+      link: 'tel:+919120076502',
     },
     {
       icon: MessageCircle,
       title: 'WhatsApp',
-      value: '+1 (555) 123-4567',
-      link: 'https://wa.me/1234567890',
+      value: '+91- 9120076502',
+      link: 'https://wa.me/9120076502',
     },
     {
       icon: MapPin,
       title: 'Location',
-      value: 'Your City, Country',
+      value: 'Bangalore, India',
       link: null,
     },
   ];
@@ -93,6 +121,8 @@ const Contact = () => {
                     {info.link ? (
                       <a
                         href={info.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-primary-400 hover:text-primary-300 transition-colors"
                       >
                         {info.value}
@@ -200,7 +230,7 @@ const Contact = () => {
               </div>
 
               {status && (
-                <div className="mb-4 p-3 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center">
+                <div className={`mb-4 p-3 rounded-lg text-center ${statusType === 'success' ? 'bg-green-500/20 border border-green-500/50 text-green-400' : statusType === 'error' ? 'bg-red-500/20 border border-red-500/50 text-red-400' : 'bg-blue-500/20 border border-blue-500/50 text-blue-400'}`}>
                   {status}
                 </div>
               )}

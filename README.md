@@ -181,7 +181,7 @@ Update the following files with your information:
 
 ### 2. Resume PDF
 
-Replace `public/resume.pdf` with your actual resume PDF file. The download button in the navbar will automatically link to it.
+Replace `public/Rahul_SDE.pdf` with your actual resume PDF file. The download button in the navbar will automatically link to it.
 
 ### 3. Social Links
 
@@ -195,17 +195,41 @@ Customize the color scheme in `tailwind.config.js` by modifying the primary colo
 
 ### 5. Contact Form
 
-The contact form currently shows a success message. To make it functional, integrate with:
-- Email services (EmailJS, SendGrid, etc.)
-- Backend API
-- Form services (Formspree, Netlify Forms, etc.)
+The contact form is wired to support sending messages via **Formspree** (no backend required) or you can integrate with a server-side email provider if preferred.
+
+Quick Formspree setup (recommended for now):
+
+1. Create a free account at https://formspree.io and create a new form — note the form endpoint ID (e.g. `https://formspree.io/f/xyz123`).
+2. Add the endpoint to your Vite environment: create a file named `.env.local` in the project root with:
+
+```bash
+VITE_FORMSPREE_ENDPOINT="https://formspree.io/f/your_form_id"
+```
+
+3. Restart the dev server (`npm run dev`) and submit the contact form — it will POST to Formspree and deliver messages to your registered email.
+
+Troubleshooting if you see "form not found":
+- Make sure your `VITE_FORMSPREE_ENDPOINT` contains the correct Formspree form URL (e.g. `https://formspree.io/f/xyz123`).
+- Create the form in Formspree dashboard and verify the form ID is active.
+- Confirm the `.env.local` file is in the project root and the dev server was **restarted** after adding the env var.
+- Inspect the network tab in DevTools to see the response body and status code (the form returns helpful error messages in JSON).
+- You can test with curl to check the endpoint directly:
+
+```bash
+curl -i -X POST https://formspree.io/f/your_form_id -H "Accept: application/json" -H "Content-Type: application/json" -d '{"name":"Test","email":"you@example.com","subject":"Test","message":"hello"}'
+```
+- If the endpoint returns 404 or "form not found", double-check the form ID and make sure you're using the `https://formspree.io/f/{id}` path (not the older `/forms/{id}` path).
+
+Notes and production considerations:
+- For production-grade security and features (spam control, logging, retries), consider a serverless endpoint + SendGrid/AWS SES as described earlier.
+- Add CAPTCHA/reCAPTCHA and server-side validation to reduce spam for public sites.
 
 ## Project Structure
 
 ```
 personal-portfolio/
 ├── public/
-│   └── resume.pdf          # Your resume PDF
+│   └── Rahul_SDE.pdf          # Your resume PDF
 ├── src/
 │   ├── components/
 │   │   ├── Navbar.jsx      # Navigation bar
@@ -218,6 +242,27 @@ personal-portfolio/
 │   ├── App.jsx             # Main app component
 │   ├── main.jsx            # Entry point
 │   └── index.css           # Global styles
+```
+
+---
+
+## Deploying to Render with Docker (recommended)
+This project includes a Dockerfile and nginx config to build and serve the Vite app as a static SPA. Render can build and run this container directly.
+
+1. Create a new **Web Service** on Render and connect your Git repository.
+2. Set the **Environment** to "Docker" so Render runs the project's `Dockerfile` during deploy.
+3. Ensure build and run settings (defaults are usually fine). The Dockerfile builds the app and serves it with nginx on port 80.
+4. Optional: add build environment variables in Render (for example, `VITE_FORMSPREE_ENDPOINT`), then redeploy.
+
+Notes and tips
+- The Dockerfile is multi-stage: it installs dependencies and runs `npm run build` in a Node builder stage, and then copies `dist` into an nginx image for production serving.
+- An `nginx.conf` is included to enable SPA routing (fallback to `index.html`).
+- You can also deploy as a static site using Render's Static Sites if you prefer not to use Docker: run `npm run build` locally and upload the `dist` output, or let Render build before deploying.
+
+If you'd like I can also:
+- Add a `render.yaml` to automate the Render service creation, or
+- Configure a CI step / GitHub Action to build and push the image to a container registry before deploying.
+
 ├── tailwind.config.js      # Tailwind configuration
 ├── postcss.config.js       # PostCSS configuration
 └── package.json            # Dependencies

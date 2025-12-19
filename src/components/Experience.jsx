@@ -4,39 +4,28 @@ import { Briefcase, Calendar } from 'lucide-react';
 const Experience = () => {
   const experiences = [
     {
-      title: 'Senior Java Backend Developer',
-      company: 'Tech Company Inc.',
-      period: '2022 - Present',
+      title: 'Senior Software Engineer',
+      company: "KPMG (Lowe's India) Bangalore, India",
+      period: 'June 2024 – Present',
       description: [
-        'Architected and developed microservices using Spring Boot and WebFlux',
-        'Implemented event-driven architecture with Apache Kafka for real-time data processing',
-        'Optimized database queries and improved API response times by 60%',
-        'Led migration from monolith to microservices architecture',
-        'Mentored junior developers on best practices and design patterns',
+        'Engineering marketplace backend systems powering multi-seller workflows, built with Java/Kotlin, Spring Boot, Kafka, and MongoDB.',
+        'Designed and implemented a high-throughput event-driven architecture using Kafka to stream real-time pricing, inventory, and seller updates, supporting millions of events/day with horizontal scalability and fault tolerance.',
+        'Built a Buy Box Ranking Engine to compute dynamic seller scores and ranking decisions on PDP, reducing ranking latency and improving accuracy under high load.',
+        'Enabled platform monetization by integrating policy-controlled sponsored ranking boosts, improving vendor visibility, and contributing to significant incremental revenue while maintaining customer-first ranking fairness.',
+        'Integrated upstream and downstream APIs to fetch, normalize, and process large-scale catalog data, ensuring end-to-end data consistency, faster ingestion, and reliable synchronization across marketplace services.',
+        'Improved system reliability by automating pipelines with Apache Airflow DAGs, reducing manual intervention and improving operational efficiency.',
+        'Enhanced platform observability by building end-to-end dashboards in Prometheus + Grafana for latency, throughput, error rates, and consumer lag.',
       ],
     },
     {
-      title: 'Java Backend Developer',
-      company: 'Digital Solutions Ltd.',
-      period: '2020 - 2022',
+      title: 'Software Engineering Analyst',
+      company: 'Accenture, Gurugram, India',
+      period: 'April 2021 – June 2024',
       description: [
-        'Developed RESTful APIs using Spring Boot and Java 11+',
-        'Implemented Kafka consumers and producers for asynchronous messaging',
-        'Designed and optimized MongoDB and MySQL database schemas',
-        'Built data pipelines using Apache Airflow for ETL processes',
-        'Implemented CI/CD pipelines using Jenkins and Docker',
-      ],
-    },
-    {
-      title: 'Java Developer',
-      company: 'Startup Innovations',
-      period: '2018 - 2020',
-      description: [
-        'Developed backend services using Java and Spring Framework',
-        'Worked with Kotlin for Android backend services',
-        'Integrated third-party APIs and payment gateways',
-        'Implemented unit and integration tests with JUnit and Mockito',
-        'Participated in agile development and code reviews',
+        'Developed backend services using Java, Spring Boot, and SQL, supporting financial and regulatory processing pipelines.',
+        'Optimized SQL queries, indexes, and stored procedures, reducing query execution times by up to 40% and improving batch throughput.',
+        'Enhanced and re-engineered batch processing systems, improving SLA adherence and reducing latency for high-volume jobs.',
+        'Led components of the SQL Server migration (2012 → 2017), ensuring backward compatible data models, robust failover strategy, and smooth rollout.',
       ],
     },
   ];
@@ -68,12 +57,12 @@ const Experience = () => {
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
               className={`relative mb-12 ${
-                index % 2 === 0 ? 'md:pr-1/2 md:text-right' : 'md:pl-1/2 md:ml-auto'
+                index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'
               }`}
             >
               <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-primary-500 rounded-full transform -translate-x-1/2 shadow-lg shadow-primary-500/50"></div>
 
-              <div className="ml-20 md:ml-0 md:w-11/12">
+              <div className={`ml-20 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:mr-auto md:text-left' : 'md:ml-auto md:text-left'}`}>
                 <div className="card">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
