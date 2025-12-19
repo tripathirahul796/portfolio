@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowDown, MessageCircle } from 'lucide-react';
+import profile from '../assets/profile.jpg';
 
 const Hero = () => {
   const socialLinks = [
@@ -32,7 +33,7 @@ const Hero = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full blur-xl opacity-50 animate-pulse"></div>
               <img
-                src="/profile.jpg"
+                src={profile}
                 alt="Profile"
                 className="relative w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-primary-500/50 shadow-2xl shadow-primary-500/20"
               />
